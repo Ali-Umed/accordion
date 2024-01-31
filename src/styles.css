@@ -1,50 +1,77 @@
 * {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Arial", sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 20px;
+  font-family: sans-serif;
+  color: #343a40;
+  line-height: 1;
 }
 
-.App {
+.accordion {
+  width: 700px;
+  margin: 100px auto;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.flashcards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.flashcards div {
-  border: 1px solid #e7e7e7;
-  background-color: #fff;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
+.item {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  padding: 20px 24px;
+  padding-right: 48px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  border-top: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 24px;
+  row-gap: 32px;
+  align-items: center;
 }
 
-.flashcards div:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.number {
+  font-size: 24px;
+  font-weight: 500;
+  color: #ced4da;
 }
 
-div.selected {
-  border: 1px solid #8dd453;
-  background-color: #5ddb72;
-  color: #fff;
-  font-weight: bold;
+.title,
+.icon {
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.flag {
+  margin-right: 10px;
+}
+
+.content-box {
+  grid-column: 2 / -1;
+  padding-bottom: 16px;
+  line-height: 1.6;
+}
+
+.content-box ul {
+  color: #868e96;
+  margin-left: 16px;
+  margin-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.open {
+  border-top: 4px solid #087f5b;
+}
+
+.open .number,
+.open .title {
+  color: #087f5b;
 }

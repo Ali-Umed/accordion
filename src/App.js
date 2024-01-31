@@ -1,99 +1,80 @@
-import "./styles.css";
 import { useState } from "react";
+import "./styles.css";
+
+const faqs = [
+  {
+    title: "Where are these chairs assembled?",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus.",
+    flag: "📍",
+  },
+  {
+    title: "How long do I have to return my chair?",
+    text: "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus.",
+    flag: "⌛",
+  },
+  {
+    title: "Do you ship to countries outside the EU?",
+    text: "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!",
+    flag: "🌍",
+  },
+  {
+    title: "What is the warranty period for the chairs?",
+    text: "Doloremque odit deserunt iure! Ratione, velit at nulla perspiciatis, nobis fugiat nemo, repellat corrupti vero natus.",
+    flag: "🔒",
+  },
+  {
+    title: "Can I customize the color of the chairs?",
+    text: "Soluta voluptas quisquam voluptate non, saepe quam adipisci possimus iusto repellat odio.",
+    flag: "🎨",
+  },
+  {
+    title: "How are shipping costs calculated?",
+    text: "Voluptas deleniti exercitationem aspernatur maiores repudiandae nam! Quibusdam quod velit voluptas repellendus itaque.",
+    flag: "💰",
+  },
+];
 
 export default function App() {
   return (
-    <div className="App">
-      <FlashCards />
+    <div>
+      <Accordion data={faqs} />
     </div>
   );
 }
 
-const questions = [
-  {
-    id: 3457,
-    question: "What language is React based on?",
-    answer: "JavaScript",
-  },
-  {
-    id: 7336,
-    question: "What are the building blocks of React apps?",
-    answer: "Components",
-  },
-  {
-    id: 8832,
-    question: "What's the name of the syntax we use to describe a UI in React?",
-    answer: "JSX",
-  },
-  {
-    id: 1297,
-    question: "How to pass data from parent to child components?",
-    answer: "Props",
-  },
-  {
-    id: 9103,
-    question: "How to give components memory?",
-    answer: "useState hook",
-  },
-  {
-    id: 2002,
-    question:
-      "What do we call an input element that is completely synchronized with state?",
-    answer: "Controlled element",
-  },
-  {
-    id: 5128,
-    question: "What is the virtual DOM in React?",
-    answer: "A lightweight copy of the real DOM",
-  },
-  {
-    id: 7342,
-    question: "What is React Router used for?",
-    answer: "Navigation in React applications",
-  },
-  {
-    id: 9814,
-    question: "What is the purpose of the useEffect hook in React?",
-    answer: "To perform side effects in functional components",
-  },
-  {
-    id: 6735,
-    question: "What is JSX in React?",
-    answer:
-      "JavaScript XML, a syntax extension for JavaScript recommended by React",
-  },
-  {
-    id: 4231,
-    question: "What is the role of ReactDOM in React?",
-    answer: "To render React elements into the DOM",
-  },
-  {
-    id: 3756,
-    question: "What is the purpose of the useMemo hook in React?",
-    answer: "To memoize the result of a computation in a functional component",
-  },
-];
-
-function FlashCards() {
-  const [selectedId, setSelectedId] = useState(null);
-
-  function handleClick(id) {
-    setSelectedId(id !== selectedId ? id : null);
+function Accordion({ data }) {
+  const [selectedText, setSelectedText] = useState(null);
+  function handleToggle(text) {
+    setSelectedText(text == selectedText ? null : text);
   }
 
   return (
-    <div className="flashcards">
-      {questions.map((question) => (
-        <div
-          key={question.id}
-          onClick={() => handleClick(question.id)}
-          className={question.id === selectedId ? "selected" : ""}
-        >
-          <p>
-            {question.id === selectedId ? question.answer : question.question}
-          </p>
-        </div>
+    <div className="accordion">
+      {data.map((el, i) => (
+        <AccordionItem
+          title={el.title}
+          text={el.text}
+          num={i}
+          key={el.title}
+          selectedText={selectedText}
+          setSelectedText={setSelectedText}
+          handleToggle={handleToggle}
+        />
       ))}
+    </div>
+  );
+}
+
+function AccordionItem({ num, title, text, handleToggle, selectedText }) {
+  return (
+    <div
+      className={`item ${selectedText == text ? "open" : ""}`}
+      onClick={() => handleToggle(text)}
+    >
+      <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
+      <p className="title">{title}</p>
+      <p className="icon">{selectedText == text ? "-" : "+"}</p>
+      {selectedText == text && <div className="content-box">{text}</div>}
     </div>
   );
 }
